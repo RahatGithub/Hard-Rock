@@ -6,7 +6,8 @@ searchBtn.addEventListener('click', function(){
     .then(res => res.json())
     .then(data => displaySongs(data.data))
     .catch(error => displayError("Something went wrong. Try again later"))
-    // searchSongs();
+    // searchSongs(); ***For async-await***
+    toggleSpinner();
 })
 
 // const searchSongs = async() => {
@@ -38,10 +39,12 @@ const displaySongs = songs => {
         `
         songContainer.appendChild(songDiv);
     })
+    toggleSpinner();
 }
 
 
 const getLyrics = async(artist, title) => {
+    toggleSpinner();
     const url = `https://api.lyrics.ovh/v1/${artist}/${title}`
     try{
         const res = await fetch(url)
@@ -57,10 +60,16 @@ const getLyrics = async(artist, title) => {
 const displayLyrics = lyrics => {
     const lyricsDiv = document.getElementById('song-lyrics');
     lyricsDiv.innerText = lyrics;
+    toggleSpinner();
 }
 
 
 const displayError = error => {
     const errorTag = document.getElementById('error-msg');
     errorTag.innerText = error;
+}
+
+const toggleSpinner = () => {
+    const spinner = document.getElementById('loading-spinner');
+    spinner.classList.toggle('d-none');
 }
