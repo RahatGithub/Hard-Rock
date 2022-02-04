@@ -19,6 +19,15 @@ searchBtn.addEventListener('click', function(){
 // }
 
 
+const text = document.getElementById('search-text');
+
+text.addEventListener("keydown", function(event){
+    // event.preventDefault();
+    if(event.key == 'Enter'){
+        searchBtn.click();
+    }
+})
+
 const displaySongs = songs => {
     const songContainer = document.getElementById('song-container');
     songContainer.innerHTML = '';
